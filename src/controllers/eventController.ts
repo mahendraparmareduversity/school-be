@@ -38,7 +38,7 @@ export const listUpcomingAndRunningEvents = async (req: Request, res: Response) 
             endDate: { $gte: today },
         })
             .sort({ startDate: 1 })
-            .select('_id name startDate endDate shortDescription imageUrl venue')
+            .select('_id name startDate endDate shortDescription longDescription imageUrl venue')
             .skip(skip)
             .limit(limitNum)
             .lean();
@@ -50,6 +50,7 @@ export const listUpcomingAndRunningEvents = async (req: Request, res: Response) 
             startDate: e.startDate,
             endDate: e.endDate,
             shortDescription: e.shortDescription ?? null,
+            longDescription: e.longDescription ?? null,
             imageUrl: e.imageUrl ?? null,
             venue: e.venue ?? null,
             status: getStatus(e.startDate, e.endDate),
